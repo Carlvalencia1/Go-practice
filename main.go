@@ -1,9 +1,16 @@
-
 package main
 
-import "fmt"
+import (
+	"Go_Practic/src/domain"
+	"fmt"
+)
 
 func main(){
-	// Esta es una línea de comentario en Go
-	fmt.Println("Hola mundo")
+	soda := domain.NewProduct("coca-cola",17.50)
+	fmt.Println(soda.GetName())
+
+	soda.SetName("sabritas")
+	fmt.Println(soda.GetName())
 }
+
+

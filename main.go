@@ -1,16 +1,16 @@
 package main
 
 import (
-	"Go_Practic/src/domain"
-	"fmt"
+	"Go_Practic/src/aplication"
+	"Go_Practic/src/infraestructure"
+	
 )
 
 func main(){
-	soda := domain.NewProduct("coca-cola",17.50)
-	fmt.Println(soda.GetName())
+	mysql := infraestructure.NewMySql()
+	CreateProductUseCase :=aplication.NewCreateProductUseCase(mysql)
 
-	soda.SetName("sabritas")
-	fmt.Println(soda.GetName())
+	CreateProductUseCase.Run()
 }
 
 

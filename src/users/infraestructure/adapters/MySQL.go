@@ -65,7 +65,7 @@ func (mysql *MySQL) Update(id int32, name string, lastname string, password stri
     return nil
 }
 func (mysql *MySQL) GetAll() ([]*entities.User, error) {
-	query := "SELECT * FROM users WHERE deleted = 0"
+	query := "SELECT * FROM users"
     rows, err := mysql.conn.FetchRows(query)
     if err!= nil {
         fmt.Println(err)
@@ -74,10 +74,9 @@ func (mysql *MySQL) GetAll() ([]*entities.User, error) {
     defer rows.Close()
 
     var users []*entities.User
-    var deleted bool
     for rows.Next() {
         user := entities.User{}
-        err := rows.Scan(&user.Id, &user.Name, &user.LastName, &user.Password, &user.Role, &deleted)
+        err := rows.Scan(&user.Id, &user.Name, &user.LastName, &user.Password, &user.Role)
         if err!= nil {
             fmt.Println(err)
             return nil, err
@@ -87,7 +86,7 @@ func (mysql *MySQL) GetAll() ([]*entities.User, error) {
     return users, nil
 }
 func (mysql *MySQL) Delete(id int32) error {
-	query := "UPDATE users SET deleted = 1 WHERE user_id = ?"
+	query := "UPDATE users SET deleted = 1"
 	result, err := mysql.conn.ExecutePreparedQuery(query, id)
 	if err != nil {
 		log.Printf("[MySQL] - Error al ejecutar la consulta: %v", err)

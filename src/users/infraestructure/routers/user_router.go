@@ -2,7 +2,6 @@ package routers
 
 import (
     "demo/src/users/infraestructure/controllers"
-    "demo/src/users/infraestructure/middleware"
     "github.com/gin-gonic/gin"
 )
 
@@ -13,7 +12,7 @@ func UserRoutes(r *gin.Engine, registerController *controllers.RegisterUserContr
     }
 
     v1Auth := r.Group("/v1/users")
-    v1Auth.Use(middleware.AuthMiddleware())
+
     {
         v1Auth.PUT("/:id", updateController.UpdateUser)
         v1Auth.GET("/", listUserController.GetAllUsers)
